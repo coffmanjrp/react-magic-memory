@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { SingleCard } from 'components';
 import 'App.css';
 
 const cardImages = [
@@ -10,10 +11,12 @@ const cardImages = [
   { src: '/img/sword-1.png' },
 ];
 
-type Cards = {
+export type Card = {
   id: number;
   src: string;
-}[];
+};
+
+type Cards = Card[];
 
 function App() {
   const [cards, setCards] = useState<Cards>([]);
@@ -39,12 +42,7 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <div key={card.id} className="card">
-            <div>
-              <img src={card.src} alt="card front" className="front" />
-              <img src="/img/cover.png" alt="card back" className="back" />
-            </div>
-          </div>
+          <SingleCard key={card.id} card={card} />
         ))}
       </div>
     </div>
