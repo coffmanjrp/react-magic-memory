@@ -1,22 +1,23 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { SingleCard } from 'components';
 import 'App.css';
-
-const cardImages = [
-  { src: '/img/helmet-1.png' },
-  { src: '/img/potion-1.png' },
-  { src: '/img/ring-1.png' },
-  { src: '/img/scroll-1.png' },
-  { src: '/img/shield-1.png' },
-  { src: '/img/sword-1.png' },
-];
 
 export type Card = {
   id: number;
   src: string;
+  matched: boolean;
 };
 
 type Cards = Card[];
+
+const cardImages = [
+  { src: '/img/helmet-1.png', matched: false },
+  { src: '/img/potion-1.png', matched: false },
+  { src: '/img/ring-1.png', matched: false },
+  { src: '/img/scroll-1.png', matched: false },
+  { src: '/img/shield-1.png', matched: false },
+  { src: '/img/sword-1.png', matched: false },
+];
 
 function App() {
   const [cards, setCards] = useState<Cards>([]);
@@ -27,7 +28,11 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne?.src === choiceTwo?.src) {
-        console.log('It matches');
+        setCards((prevState) =>
+          prevState.map((card) =>
+            card.src === choiceOne.src ? { ...card, matched: true } : card
+          )
+        );
         resetTurn();
       } else {
         console.log('Did not matches');
@@ -54,6 +59,8 @@ function App() {
     setChoiceTwo(null);
     setTurns((prevState) => prevState + 1);
   };
+
+  console.log(cards);
 
   return (
     <div className="App">
