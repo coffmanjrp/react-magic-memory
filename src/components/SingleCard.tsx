@@ -5,16 +5,17 @@ import './SingleCard.css';
 type Props = {
   card: Card;
   handleChoice: (card: Card) => void;
+  flipped: boolean;
 };
 
-const SingleCard: FC<Props> = ({ card, handleChoice }) => {
+const SingleCard: FC<Props> = ({ card, handleChoice, flipped }) => {
   const handleClick = () => {
     handleChoice(card);
   };
 
   return (
     <div className="card">
-      <div>
+      <div className={flipped ? 'flipped' : ''}>
         <img src={card.src} alt="card front" className="front" />
         <img
           src="/img/cover.png"
