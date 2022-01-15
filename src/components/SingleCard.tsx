@@ -6,11 +6,14 @@ type Props = {
   card: Card;
   handleChoice: (card: Card) => void;
   flipped: boolean;
+  disabled: boolean;
 };
 
-const SingleCard: FC<Props> = ({ card, handleChoice, flipped }) => {
+const SingleCard: FC<Props> = ({ card, handleChoice, flipped, disabled }) => {
   const handleClick = () => {
-    handleChoice(card);
+    if (!disabled) {
+      handleChoice(card);
+    }
   };
 
   return (

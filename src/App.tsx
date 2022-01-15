@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SingleCard } from 'components';
 import 'App.css';
 
@@ -24,9 +24,11 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState<Card | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<Card | null>(null);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
       if (choiceOne?.src === choiceTwo?.src) {
         setCards((prevState) =>
           prevState.map((card) =>
@@ -57,6 +59,7 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns((prevState) => prevState + 1);
+    setDisabled(false);
   };
 
   console.log(cards);
@@ -76,6 +79,7 @@ function App() {
               card,
               handleChoice,
               flipped: card === choiceOne || card === choiceTwo || card.matched,
+              disabled,
             }}
           />
         ))}
