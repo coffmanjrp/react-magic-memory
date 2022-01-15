@@ -26,6 +26,8 @@ function App() {
   const [choiceTwo, setChoiceTwo] = useState<Card | null>(null);
   const [disabled, setDisabled] = useState(false);
 
+  useEffect(() => shuffleCards(), []);
+
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
@@ -47,6 +49,8 @@ function App() {
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
+    setChoiceOne(null);
+    setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(0);
   };
@@ -61,8 +65,6 @@ function App() {
     setTurns((prevState) => prevState + 1);
     setDisabled(false);
   };
-
-  console.log(cards);
 
   return (
     <div className="App">
@@ -84,6 +86,7 @@ function App() {
           />
         ))}
       </div>
+      <p className="turns">Turns: {turns}</p>
     </div>
   );
 }
